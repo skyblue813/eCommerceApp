@@ -16,7 +16,7 @@ function Product(){
     return(
     <div>
         <p> My Product: {product.name}</p> 
-        <p> {product.description}</p>)
+        <p> {product.description}</p>
 
 
 
