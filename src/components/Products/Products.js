@@ -1,9 +1,9 @@
 
-import { useState, useEffect, Link } from "react";
+import { useState, useEffect} from "react";
 import { commerce } from '../../lib/commerce';
 import {Card, CardActionArea, CardMedia, Grid} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
+//import { red } from "@material-ui/core/colors";
 
 
 const useStyles= makeStyles({
@@ -41,7 +41,7 @@ function Products() {
               <CardActionArea className={classes.media}> 
                 <CardMedia >            
               <a href = {"/Products/" + product.id} >
-          <img key = {product.id} src = {product.image.url} width= {215}/>
+          <img key = {product.id} src = {product.image.url} alt={product.name} width= {225}/>
           </a> 
              </CardMedia>
               </CardActionArea>

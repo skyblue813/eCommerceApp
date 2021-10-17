@@ -4,8 +4,9 @@ import './App.css';
 import {BrowserRouter,Route,Switch} from "react-router-dom";
 import Product from './components/Products/Product';
 import Products from './components/Products/Products';
-import {Grid} from '@material-ui/core';
-import Navbar from './components/Navbar';
+import {AppBar, Grid, Toolbar, Typography,IconButton} from '@material-ui/core';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+
 
 function App() {
 
@@ -13,13 +14,21 @@ function App() {
   return (
     <Grid container direction = 'column'>
       <Grid item>
-      <Navbar/>
+        <AppBar position = "static">
+          <Toolbar>
+          <IconButton href ="/"><StorefrontIcon/></IconButton>
+              <Typography>Baby Shop</Typography>
+          </Toolbar>
+        </AppBar>
+
+      
     </Grid>
     <Grid item container>
           <Grid item xs={false} sm={1} md={2} lg={2}></Grid>
           <Grid item xs={12} sm={10} md={8} lg={8}>
           
-              <p>Productitems</p>
+          <h1>Welcome to Baby Shop!</h1>
+              
               <BrowserRouter>
                 <Switch>
 
