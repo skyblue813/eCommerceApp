@@ -37,7 +37,7 @@ function Product(){
                         images.map(
                             (pict)=>{
                                 return{original:"/assets/" + pict}})
-                    } >
+                    } showPlayButton ={false} >
                     </ReactImageGallery> 
                   </Grid>
                   <Grid item xs= {6}>

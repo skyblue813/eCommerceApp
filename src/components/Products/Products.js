@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles= makeStyles({
   media: {
      height: 210,
-     border: '1px solid black',
+     border: '2px solid blue',
   }
 });
 function Products() {
