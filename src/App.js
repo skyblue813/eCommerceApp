@@ -6,11 +6,32 @@ import Product from './components/Products/Product';
 import Products from './components/Products/Products';
 import {AppBar, Grid, Toolbar, Typography,IconButton} from '@material-ui/core';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { commerce } from './lib/commerce';
+
 
 
 function App() {
 
-  console.log("during the render");
+  const [cart,setCart] = useState({});
+useEffect(() => {
+  commerce.cart.retrieve().then(
+    (response)=> {
+      console.log(response);
+      setCart(response);
+    }
+  )
+}, []);
+
+ const handleAddToCart = (ProductId, quantity) => {
+    commerce.cart.add(ProductId, quantity).then(
+      (response) => {
+        console.log(response);
+      }
+    );
+  }
+  
   return (
     <Grid container direction = 'column'>
       <Grid item>
@@ -33,7 +54,7 @@ function App() {
                 <Switch>
 
                   <Route path={["/Products/:ProductId"]}>
-                    <Product />
+                    <Product handleAddToCart={handleAddToCart}/>
                   </Route>
 
                   <Route path={["/Products"]}>

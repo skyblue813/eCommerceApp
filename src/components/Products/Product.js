@@ -1,16 +1,15 @@
 import { useParams } from "react-router";
 import {commerce} from "../../lib/commerce";
 import {useEffect,useState} from "react"
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import"react-image-gallery/styles/css/image-gallery.css"
 import ReactImageGallery from 'react-image-gallery';
-//import { PictureAsPdfSharp } from "@material-ui/icons";
 import ProdPics from "./ProdPics";
 import '../../App.css';
 
 
 
-function Product(){
+function Product({handleAddToCart}){
     let {ProductId}=useParams();
     const[product,setProduct]=useState(undefined);
     useEffect(()=>{
@@ -33,16 +32,23 @@ function Product(){
                     {product !== undefined && 
                     <>
                     <Grid item xs= {6}>
-                    <ReactImageGallery items={ 
+                    <ReactImageGallery 
+                    showPlayButton ={false}
+                    items={ 
                         images.map(
                             (pict)=>{
                                 return{original:"/assets/" + pict}})
-                    } showPlayButton ={false} >
+                    }  >
                     </ReactImageGallery> 
                   </Grid>
                   <Grid item xs= {6}>
                     <h2>{product.name}</h2>
                     <h3>${product.price.formatted}</h3>
+                    <Button variant ="contained" color = "primary" onClick={
+                        ()=> {
+                            handleAddToCart(product.id, 1);
+                        }
+                    }> Add Item to cart</Button>
                     <div dangerouslySetInnerHTML={{ __html: product.description}} />
                    
                 </Grid>

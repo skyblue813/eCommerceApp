@@ -41,7 +41,7 @@ function Products() {
               <CardActionArea className={classes.media}> 
                 <CardMedia >            
               <a href = {"/Products/" + product.id} >
-          <img key = {product.id} src = {product.image.url} alt={product.name} width= {225}/>
+          <img key = {product.id} src = {product.image.url} alt={product.name} width= {210}/>
           </a> 
              </CardMedia>
               </CardActionArea>
