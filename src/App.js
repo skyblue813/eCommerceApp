@@ -4,11 +4,12 @@ import './App.css';
 import {BrowserRouter,Route,Switch} from "react-router-dom";
 import Product from './components/Products/Product';
 import Products from './components/Products/Products';
-import {AppBar, Grid, Toolbar, Typography,IconButton} from '@material-ui/core';
-import StorefrontIcon from '@material-ui/icons/Storefront';
+import { Grid } from '@material-ui/core';
+import Cart from './components/cart/Cart';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { commerce } from './lib/commerce';
+import Navbar from './components/navbar';
 
 
 
@@ -35,14 +36,7 @@ useEffect(() => {
   return (
     <Grid container direction = 'column'>
       <Grid item>
-        <AppBar position = "static">
-          <Toolbar>
-          <IconButton href ="/"><StorefrontIcon/></IconButton>
-              <Typography>Baby Shop</Typography>
-          </Toolbar>
-        </AppBar>
-
-      
+        <Navbar cartItems = {cart.total_items}/>
     </Grid>
     <Grid item container>
           <Grid item xs={false} sm={1} md={2} lg={2}></Grid>
@@ -53,13 +47,16 @@ useEffect(() => {
               <BrowserRouter>
                 <Switch>
 
-                  <Route path={["/Products/:ProductId"]}>
+                  <Route exact path={["/Products/:ProductId"]}>
                     <Product handleAddToCart={handleAddToCart}/>
                   </Route>
 
-                  <Route path={["/Products"]}>
+                  <Route exact path={["/Products"]}>
                     <Products />
                   </Route >
+                  <Route exact path={["/cart"]}>
+                    <Cart car = {cart}/>
+                  </Route>
                 </Switch>
 
               </BrowserRouter>
