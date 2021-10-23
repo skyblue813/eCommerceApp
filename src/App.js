@@ -55,7 +55,7 @@ useEffect(() => {
                     <Products />
                   </Route >
                   <Route exact path={["/cart"]}>
-                    <Cart car = {cart}/>
+                    <Cart cart = {cart}/>
                   </Route>
                 </Switch>
 

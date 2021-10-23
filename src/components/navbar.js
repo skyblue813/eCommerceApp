@@ -6,8 +6,8 @@ function Navbar({cartItems}){
     return(
     <AppBar position = "static" color = "primary">
           <Toolbar>
-          <IconButton href ="/" width = '50'><StorefrontIcon/></IconButton>
-              <Typography>Baby Shop</Typography>
+          <IconButton href ="/Products" width = '50'><StorefrontIcon/></IconButton>
+              <Typography >Baby Shop</Typography>
               <IconButton href = "/cart">
                   <Badge badgeContent = {cartItems} color = "error">
                   <ShoppingCartIcon />

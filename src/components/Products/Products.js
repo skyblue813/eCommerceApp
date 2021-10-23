@@ -28,9 +28,9 @@ function Products() {
   console.log("during the render");
   
   return (
-
+ 
     <Grid container spacing={2}>
-
+        
       {products.length === 0 && <p>Loading . . .</p>}
       {
         products.map((product) => {
