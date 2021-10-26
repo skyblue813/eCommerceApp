@@ -1,7 +1,7 @@
-import { Grid } from "@material-ui/core";
+import { Grid , Button} from "@material-ui/core";
 import CartItem from "./cartItem";
 
-function Cart({cart}){
+function Cart({cart, updateCart, emptyCart}){
     if(! cart || ! cart.line_items){
         return <div>Loading the cart...</div>
     }
@@ -12,18 +12,27 @@ function Cart({cart}){
  
     else return(
         <div><h2>Your Shopping Cart</h2> 
-        <Grid container direction = "column">
+        <Grid container direction = "column" spacing = {4}>
+            
+            <Grid item >
             {
              cart.line_items.map(
                  (cartItem) => {
                      return(
-                         <CartItem key = {cartItem.id} cartItem = {cartItem} />
+                         <CartItem key = {cartItem.id} cartItem = {cartItem} updateCart = {updateCart} emptyCart={emptyCart}/>
                                 );
                          }
                     )
             }
-
-        </Grid>
+            </Grid>
+            <Grid item>
+            <Button variant ="contained" color = "primary" onClick={
+                        ()=> {
+                            emptyCart();
+                        }
+                    }> Empty your Cart</Button>
+            </Grid>
+            </Grid>
         </div>
     
     );

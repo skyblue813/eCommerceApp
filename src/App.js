@@ -29,10 +29,29 @@ useEffect(() => {
     commerce.cart.add(ProductId, quantity).then(
       (response) => {
         console.log(response);
+        setCart(response.cart);
       }
     );
   }
   
+  const updateCart = (lineItemId,quantity) =>{
+    commerce.cart.update(lineItemId,quantity).then(
+      (response)=> {
+        console.log(response);
+        setCart(response.cart);
+      }
+    );
+        
+  }
+
+  const emptyCart=()=>{
+    commerce.cart.empty().then(
+      (response) => {
+        console.log(response);
+        setCart(response.cart);
+      }
+      );
+  }
   return (
     <Grid container direction = 'column'>
       <Grid item>
@@ -55,7 +74,8 @@ useEffect(() => {
                     <Products />
                   </Route >
                   <Route exact path={["/cart"]}>
-                    <Cart cart = {cart}/>
+                    <Cart cart = {cart} updateCart={updateCart} emptyCart={emptyCart}/>
+                    
                   </Route>
                 </Switch>
 
