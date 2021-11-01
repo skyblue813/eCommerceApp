@@ -1,5 +1,10 @@
-import { Grid , Button} from "@material-ui/core";
+
+import { Grid , Button, Link} from "@material-ui/core";
 import CartItem from "./cartItem";
+import {commerce} from "../../lib/commerce"
+
+
+
 
 function Cart({cart, updateCart, emptyCart}){
     if(! cart || ! cart.line_items){
@@ -31,6 +36,13 @@ function Cart({cart, updateCart, emptyCart}){
                             emptyCart();
                         }
                     }> Empty your Cart</Button>
+            <Button onClick={
+                (event) => {
+                window.location.href='/Checkout'
+                commerce.checkout.generateToken(cart.id, {"type": "cart"}).then( (response) => {
+                console.log(response);
+                });
+            }}>Generate Checkout Token</Button>
             </Grid>
             </Grid>
         </div>
@@ -39,3 +51,4 @@ function Cart({cart, updateCart, emptyCart}){
 }
 
 export default Cart;
+// event => window.location.href='/Checkout'

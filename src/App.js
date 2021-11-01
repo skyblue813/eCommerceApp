@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { commerce } from './lib/commerce';
 import Navbar from './components/navbar';
+import Checkout from "./components/Checkout"
+
 
 
 
@@ -74,9 +76,14 @@ useEffect(() => {
                     <Products />
                   </Route >
                   <Route exact path={["/cart"]}>
-                    <Cart cart = {cart} updateCart={updateCart} emptyCart={emptyCart}/>
+                    <Cart cart = {cart} updateCart={updateCart} emptyCart={emptyCart} Checkout ={Checkout}/>
                     
+                 </Route>
+                   <Route exact path={["/Checkout"]}>
+                  <Checkout />
+
                   </Route>
+
                 </Switch>
 
               </BrowserRouter>
