@@ -39,9 +39,6 @@ function Cart({cart, updateCart, emptyCart}){
             <Button onClick={
                 (event) => {
                 window.location.href='/Checkout'
-                commerce.checkout.generateToken(cart.id, {"type": "cart"}).then( (response) => {
-                console.log(response);
-                });
             }}>Generate Checkout Token</Button>
             </Grid>
             </Grid>

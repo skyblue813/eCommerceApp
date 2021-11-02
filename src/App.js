@@ -80,7 +80,7 @@ useEffect(() => {
                     
                  </Route>
                    <Route exact path={["/Checkout"]}>
-                  <Checkout />
+                  <Checkout  cart = {cart}/>
 
                   </Route>
 
