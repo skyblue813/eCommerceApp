@@ -63,7 +63,7 @@ useEffect(() => {
           <Grid item xs={false} sm={1} md={2} lg={2}></Grid>
           <Grid item xs={12} sm={10} md={8} lg={8}>
           
-          <h1>Welcome to Baby Shop!</h1>
+          <h2>Welcome to Baby Shop!</h2>
               
               <BrowserRouter>
                 <Switch>

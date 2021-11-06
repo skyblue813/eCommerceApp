@@ -6,45 +6,46 @@ import { Grid } from '@material-ui/core';
 import ShippingForm from './ShippingForm'
 
 function Checkout({ cart }) {
-    //     const [token,setToken] = useState({});
-    // useEffect(() => {
-    //   commerce.checkout.generateToken(cart.id, {type :"cart"}).then(
-    //     (response)=> {
-    //       console.log(response);
-    //       setToken(response);
-    //     }
-    //   )
-    // }, []);
 
-    const [checkoutToken, setCheckoutToken] = useState();
+    const [checkoutToken, setCheckoutToken] = useState(cart);
 
     useEffect(() => {
         if (cart.id) {
             commerce.checkout.generateToken(cart.id, { type: 'cart' }).then(
-                (response) => { 
-                    console.log(response);
-                    setCheckoutToken(response);
-                     }
+                (checkoutToken) => { 
+                    setCheckoutToken(checkoutToken.id)
+                //console.log(checkoutID.id); 
+            }
+
             );
         }
+
     }, [cart]);
-    //console.log(checkoutToken.id);
+   // console.log(checkoutToken);
 
 
     const [formData, setFormData] = useState({});
+
+
     return (
 
         <Grid container direction="column">
 
             <Grid item>
-                <p> Checkout Page</p>
+                <h1> Checkout Page</h1>
             </Grid>
             <Grid item >
-                <p> Shipping Form</p>
-                <ShippingForm checkoutToken = {checkoutToken} setFormData={setFormData} />
-                <p> Form Submission Summary:</p>
-                {formData["Country"] && <p>Country: {formData["Country"]}</p>}
-                {formData["userName"] && <p>User Name: {formData["userName"]}</p>}
+                <h3> Shipping Form</h3>
+                <Grid item>
+                    <ShippingForm checkoutToken={checkoutToken} setFormData={setFormData} />
+
+                    {/* <p> Form Submission Summary:</p>
+                    {formData["Country"] && <p>Country: {formData["Country"]}</p>}
+                    {formData["fullName"] && <p>Full Name: {formData["fullName"]}</p>}
+                    {formData["Phone"] && <p>Phone Number: {formData["Phone"]}</p>}
+                    {formData["StreetAddress"] && <p>Street Address: {formData["StreetAddress"]}</p>} */}
+                </Grid>
+
             </Grid>
             <Grid item>
                 <p>Payment Information</p>
@@ -54,6 +55,7 @@ function Checkout({ cart }) {
             </Grid>
         </Grid>
     )
+
 }
 
 export default Checkout;

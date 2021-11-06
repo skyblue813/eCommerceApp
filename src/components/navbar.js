@@ -12,6 +12,8 @@ function Navbar({cartItems}){
                   <Badge badgeContent = {cartItems} color = "error">
                   <ShoppingCartIcon />
                   </Badge>
+
+              
               </IconButton>
               
           </Toolbar>

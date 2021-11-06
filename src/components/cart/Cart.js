@@ -36,10 +36,10 @@ function Cart({cart, updateCart, emptyCart}){
                             emptyCart();
                         }
                     }> Empty your Cart</Button>
-            <Button onClick={
+            <Button variant ="contained" color = "primary" onClick={
                 (event) => {
                 window.location.href='/Checkout'
-            }}>Generate Checkout Token</Button>
+            }}>Go to Checkout</Button>
             </Grid>
             </Grid>
         </div>
