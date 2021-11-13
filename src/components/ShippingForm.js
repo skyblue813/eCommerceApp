@@ -51,8 +51,9 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
         }
     }, [checkoutToken, country]);
     //console.log(region);
+    
+    
     // shippingMethod
-
     const [shippingMethods, setShippingMethods] = useState(undefined);
     const [shippingMethod, setShippingMethod] = useState("");
     useEffect(() => {

@@ -41,14 +41,6 @@ function Checkout({ cart }) {
                     {
                         //shippingInfo["country"] &&
                         console.log(shippingInfo)
-                        // console.log("FullName:", shippingInfo["fullName"], 
-                        //         "Ph no:", shippingInfo["Phone"], 
-                        //         "StreetAddress:", shippingInfo["StreetAddress"], 
-                        //         "City:", shippingInfo["City"], 
-                        //         "Zipcode:", shippingInfo["Zipcode"], 
-                        //         "country:", shippingInfo["Country"], 
-                        //         "region:", shippingInfo["region"], 
-                        //         "Shipping:", shippingInfo["shipping" ])
                     }
             </Grid>
             <Grid item>
