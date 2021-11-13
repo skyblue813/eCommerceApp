@@ -1,9 +1,10 @@
-import react from 'react'
+
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { commerce } from "../lib/commerce"
 import { Grid } from '@material-ui/core';
 import ShippingForm from './ShippingForm'
+import PaymentForm from './paymentForm'
 
 function Checkout({ cart }) {
 
@@ -14,18 +15,18 @@ function Checkout({ cart }) {
             commerce.checkout.generateToken(cart.id, { type: 'cart' }).then(
                 (checkoutToken) => { 
                     setCheckoutToken(checkoutToken.id)
-                //console.log(checkoutID.id); 
+                console.log(checkoutToken.id); 
             }
 
             );
         }
 
     }, [cart]);
-   // console.log(checkoutToken);
+   console.log(checkoutToken);
 
 
-    const [formData, setFormData] = useState({});
-
+    //const [formData, setFormData] = useState({});
+    const [shippingInfo, setShippingInfo] = useState({});
 
     return (
 
@@ -36,19 +37,22 @@ function Checkout({ cart }) {
             </Grid>
             <Grid item >
                 <h3> Shipping Form</h3>
-                <Grid item>
-                    <ShippingForm checkoutToken={checkoutToken} setFormData={setFormData} />
-
-                    {/* <p> Form Submission Summary:</p>
-                    {formData["Country"] && <p>Country: {formData["Country"]}</p>}
-                    {formData["fullName"] && <p>Full Name: {formData["fullName"]}</p>}
-                    {formData["Phone"] && <p>Phone Number: {formData["Phone"]}</p>}
-                    {formData["StreetAddress"] && <p>Street Address: {formData["StreetAddress"]}</p>} */}
-                </Grid>
-
+                <ShippingForm checkoutToken={checkoutToken} setShippingInfo={setShippingInfo} />
+                    {
+                        //shippingInfo["country"] &&
+                        console.log(shippingInfo)
+                        // console.log("FullName:", shippingInfo["fullName"], 
+                        //         "Ph no:", shippingInfo["Phone"], 
+                        //         "StreetAddress:", shippingInfo["StreetAddress"], 
+                        //         "City:", shippingInfo["City"], 
+                        //         "Zipcode:", shippingInfo["Zipcode"], 
+                        //         "country:", shippingInfo["Country"], 
+                        //         "region:", shippingInfo["region"], 
+                        //         "Shipping:", shippingInfo["shipping" ])
+                    }
             </Grid>
             <Grid item>
-                <p>Payment Information</p>
+                <PaymentForm />
             </Grid>
             <Grid item>
                 <p>Submission</p>

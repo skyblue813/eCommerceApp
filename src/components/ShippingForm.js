@@ -1,11 +1,11 @@
 import { MenuItem, Select, Button, TextField, Grid } from "@material-ui/core";
-import { Fullscreen } from "@material-ui/icons";
+
 import { useState, useEffect } from "react";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 import { commerce } from '../lib/commerce'
 
 
-function ShippingForm({ setFormData, checkoutToken }) {
+function ShippingForm({ setShippingInfo, checkoutToken }) {
     const [country, setCountry] = useState("");
     const [countries, setCountries] = useState(undefined);
     const [fullName, setFullName] = useState("");
@@ -36,7 +36,7 @@ function ShippingForm({ setFormData, checkoutToken }) {
                 );
         }
     }, [checkoutToken]);
-    console.log(country);
+    //console.log(country);
 
     //for region
     const [region, setRegion] = useState("");
@@ -50,7 +50,7 @@ function ShippingForm({ setFormData, checkoutToken }) {
                 });
         }
     }, [checkoutToken, country]);
-    console.log(region);
+    //console.log(region);
     // shippingMethod
 
     const [shippingMethods, setShippingMethods] = useState(undefined);
@@ -67,7 +67,7 @@ function ShippingForm({ setFormData, checkoutToken }) {
             });
         }
     }, [checkoutToken, country, region]);
-    console.log(shippingMethod);
+    //console.log(shippingMethod);
 
 
     const onTextFieldChange = (e) => {
@@ -223,7 +223,7 @@ function ShippingForm({ setFormData, checkoutToken }) {
                         onCityUnfocused(city)
                         onZipcodeUnfocused(zipcode)
 
-                        setFormData(
+                        setShippingInfo(
                             {
                                 "Country": country,
                                 "fullName": fullName,
