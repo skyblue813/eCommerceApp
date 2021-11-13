@@ -13,16 +13,16 @@ function Checkout({ cart }) {
     useEffect(() => {
         if (cart.id) {
             commerce.checkout.generateToken(cart.id, { type: 'cart' }).then(
-                (checkoutToken) => { 
+                (checkoutToken) => {
                     setCheckoutToken(checkoutToken.id)
-                console.log(checkoutToken.id); 
-            }
+                    console.log(checkoutToken.id);
+                }
 
             );
         }
 
     }, [cart]);
-   console.log(checkoutToken);
+    console.log(checkoutToken);
 
 
     //const [formData, setFormData] = useState({});
@@ -38,10 +38,10 @@ function Checkout({ cart }) {
             <Grid item >
                 <h3> Shipping Form</h3>
                 <ShippingForm checkoutToken={checkoutToken} setShippingInfo={setShippingInfo} />
-                    {
-                        //shippingInfo["country"] &&
-                        console.log(shippingInfo)
-                    }
+                {
+                    //shippingInfo["country"] &&
+                    console.log(shippingInfo)
+                }
             </Grid>
             <Grid item>
                 <PaymentForm />
