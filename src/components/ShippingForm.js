@@ -147,7 +147,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
 
     return (
         <div>
-            <Grid container direction="column">
+            <Grid container direction="column" spacing ={1}>
                 <Grid item>
                     <TextField name="fullName" label="Enter your Full Name " onChange={onTextFieldChange}
                         error={textError}
@@ -217,7 +217,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
                     </Select>
                 </Grid>}
                 <Grid item>
-                    <Button variant="contained" color="primary" onClick={() => {
+                    <Button variant="contained" color="primary" size = "small"onClick={() => {
                         onTextFieldUnfocused(fullName)
                         onPhoneUnfocused(phone)
                         onStreetAddressUnfocused(streetAddress)
