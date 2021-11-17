@@ -1,19 +1,23 @@
 import { MenuItem, Select, Button, TextField, Grid } from "@material-ui/core";
-
 import { useState, useEffect } from "react";
+import { commerce } from "../lib/commerce";
 import ReactPhoneInput from 'react-phone-input-material-ui';
-import { commerce } from '../lib/commerce'
 
 
-function ShippingForm({ setShippingInfo, checkoutToken }) {
+function ShippingForm({ checkoutToken, setshippingInfo }) {
+    //console.log(checkoutToken)
+
     const [country, setCountry] = useState("");
-    const [countries, setCountries] = useState(undefined);
+
     const [fullName, setFullName] = useState("");
     const [textError, setTextError] = useState(false);
     const [textHelper, setTextHelper] = useState("");
     const [phone, setPhone] = useState("");
     const [phoneError, setPhoneError] = useState(false);
     const [phoneHelper, setPhoneHelper] = useState("");
+    const [email, setEmail] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [emailHelper, setEmailHelper] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
     const [addressError, setAddressError] = useState(false);
     const [addressHelper, setAddressHelper] = useState("");
@@ -24,38 +28,50 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
     const [zipcodeError, setZipcodeError] = useState(false);
     const [zipcodeHelper, setZipcodeHelper] = useState("");
 
-    //console.log(checkoutToken);
 
+
+    const [countries, setCountries] = useState(undefined);
     useEffect(() => {
         if (checkoutToken) {
-            commerce.services.localeListShippingCountries(checkoutToken)
-                .then((response) => {
-                    setCountries(response["countries"]);
-                    setCountry(Object.keys(response["countries"])[0]);
-                }
-                );
+            commerce.services.localeListShippingCountries(checkoutToken).then((response) => {
+                setCountries(response["countries"]);
+                setCountry(Object.keys(response["countries"])[0]);
+            }
+            );
         }
     }, [checkoutToken]);
-    //console.log(country);
+
+   //console.log(country);
+    //console.log(countries);
 
     //for region
+
     const [region, setRegion] = useState("");
     const [regions, setRegions] = useState(undefined);
+
     useEffect(() => {
+
         if (country) {
             commerce.services.localeListShippingSubdivisions(checkoutToken, country)
                 .then((response) => {
                     setRegions(response["subdivisions"]);
                     setRegion(Object.keys(response["subdivisions"])[0]);
+
                 });
+
         }
+
     }, [checkoutToken, country]);
+
     //console.log(region);
-    
-    
+    //console.log(regions);
+
     // shippingMethod
+
     const [shippingMethods, setShippingMethods] = useState(undefined);
+
     const [shippingMethod, setShippingMethod] = useState("");
+
     useEffect(() => {
         if (country && region) {
             commerce.checkout.getShippingOptions(checkoutToken, {
@@ -68,6 +84,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
             });
         }
     }, [checkoutToken, country, region]);
+
     //console.log(shippingMethod);
 
 
@@ -84,7 +101,6 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
             setTextHelper("All set");
         }
     }
-    //console.log(fullName);
 
     const onPhoneChange = (phoneNumber) => {
         setPhone(phoneNumber);
@@ -99,7 +115,20 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
             setPhoneHelper("");
         }
     }
-    //console.log(phone);
+    const onEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const onEmailfieldUnfocused = (e) => {
+        if (!email) {
+            setEmailError(true);
+            setEmailHelper("Please provide your email");
+        } else {
+            setEmailError(false);
+            setEmailHelper("All set");
+        }
+    }
+
 
     const onStreetAddressChange = (e) => {
         setStreetAddress(e.target.value);
@@ -108,7 +137,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
     const onStreetAddressUnfocused = (e) => {
         if (!streetAddress) {
             setAddressError(true);
-            setAddressHelper("Please enter the Address");
+            setAddressHelper("Plese enter the Address");
         } else {
             setAddressError(false);
             setAddressHelper("");
@@ -122,7 +151,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
     const onCityUnfocused = (e) => {
         if (!city) {
             setCityError(true);
-            setCityHelper("Plese enter the city");
+            setCityHelper("Please enter the city");
         } else {
             setCityError(false);
             setCityHelper("");
@@ -143,18 +172,19 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
         }
     }
 
-    //console.log({ fullName, phone, streetAddress, city, zipcode, country });
+
 
     return (
         <div>
-            <Grid container direction="column" spacing ={1}>
+            <Grid container direction='column'>
                 <Grid item>
-                    <TextField name="fullName" label="Enter your Full Name " onChange={onTextFieldChange}
+                    <TextField name="fullName" label=" Full Name " onChange={onTextFieldChange}
                         error={textError}
                         helperText={textHelper}
                         onBlur={onTextFieldUnfocused}
                     />
                 </Grid>
+
                 <Grid item>
                     <ReactPhoneInput component={TextField} onChange={onPhoneChange}
                         inputProps={
@@ -167,14 +197,21 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="streetAddress" label=" Enter Street Address " onChange={onStreetAddressChange}
+                    <TextField name="email" label="Email " onChange={onEmailChange}
+                        error={emailError}
+                        helperText={emailHelper}
+                        onBlur={onEmailfieldUnfocused}
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField name="streetAddress" label=" Street Address " onChange={onStreetAddressChange}
                         error={addressError}
                         helperText={addressHelper}
                         onBlur={onStreetAddressUnfocused}
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="city" label="Enter City " onChange={onCityChange}
+                    <TextField name="city" label=" City " onChange={onCityChange}
 
                         error={cityError}
                         helperText={cityHelper}
@@ -182,7 +219,7 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="zipcode" label="Enter Zipcode " onChange={onZipcodeChange}
+                    <TextField name="zipcode" label=" Zipcode " onChange={onZipcodeChange}
 
                         error={zipcodeError}
                         helperText={zipcodeHelper}
@@ -190,60 +227,78 @@ function ShippingForm({ setShippingInfo, checkoutToken }) {
                     />
                 </Grid>
                 {countries && country && <Grid item>
+
                     <Select value={country} onChange={(e) => { setCountry(e.target.value) }}>
+
                         {
                             Object.keys(countries).map((countryCode) => {
-                                return <MenuItem value={countryCode} key={countryCode}> {countries[countryCode]}</MenuItem>
+                            return <MenuItem value={countryCode} key={countryCode}> {countries[countryCode]}</MenuItem>
                             })
+
                         }
                     </Select>
                 </Grid>}
+
                 {regions && region && <Grid item>
+
                     <Select value={region} onChange={(e) => { setRegion(e.target.value) }}>
+
                         {
                             Object.keys(regions).map((regionCode) => {
                                 return <MenuItem value={regionCode} key={regionCode}> {regions[regionCode]}</MenuItem>
                             })
+
                         }
+
                     </Select>
+
                 </Grid>}
+
                 {shippingMethods && shippingMethod && <Grid item>
+
                     <Select value={shippingMethod} onChange={(e) => { setShippingMethod(e.target.value) }}>
+
                         {
+
                             shippingMethods.map((oneMethod) => {
                                 return <MenuItem value={oneMethod["id"]} key={oneMethod["id"]}> {oneMethod["description"]}</MenuItem>
                             })
+
                         }
+
                     </Select>
+
                 </Grid>}
+
                 <Grid item>
-                    <Button variant="contained" color="primary" size = "small"onClick={() => {
+                    <Button size ="small" variant ="contained" color = "primary" 
+                    onClick={() => {
                         onTextFieldUnfocused(fullName)
                         onPhoneUnfocused(phone)
                         onStreetAddressUnfocused(streetAddress)
                         onCityUnfocused(city)
                         onZipcodeUnfocused(zipcode)
+                        onEmailfieldUnfocused(email)
 
-                        setShippingInfo(
+                        setshippingInfo(
                             {
-                                "Country": country,
+                                "country": country,
                                 "fullName": fullName,
-                                "Phone": phone,
-                                "StreetAddress": streetAddress,
-                                "City": city,
+                                "phone": phone,
+                                "email": email,
+                                "streetAddress": streetAddress,
+                                "city": city,
                                 "region": region,
                                 "shipping": shippingMethod,
-                                "Zipcode": zipcode,
-                            }
-                        )
+                                "zipcode": zipcode,
+                            });
                     }
-                    
-                    }>Use this Shipping Address</Button>
+                    }> Use this Shipping Address</Button>
 
                 </Grid>
 
             </Grid>
-        </div >
+        </div>
 
     );
 }

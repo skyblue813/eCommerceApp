@@ -1,68 +1,105 @@
-
 import { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
+
 import { commerce } from "../lib/commerce"
-import { Grid, Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import ShippingForm from './ShippingForm'
-import PaymentForm from './paymentForm'
-import { CenterFocusStrong } from '@material-ui/icons';
+import PaymentForm from './paymentForm';
+
 
 function Checkout({ cart }) {
+    const [checkout, setCheckout] = useState({});
 
-    const [checkoutToken, setCheckoutToken] = useState(cart);
 
     useEffect(() => {
+
         if (cart.id) {
             commerce.checkout.generateToken(cart.id, { type: 'cart' }).then(
-                (checkoutToken) => {
-                    setCheckoutToken(checkoutToken.id)
-                    console.log(checkoutToken.id);
+                (checkout) => {
+                    setCheckout(checkout)
+                    //console.log(CheckoutID)
                 }
-
             );
+
         }
 
     }, [cart]);
-    console.log(checkoutToken);
+    console.log(checkout)
 
-
-    //const [formData, setFormData] = useState({});
-    const [shippingInfo, setShippingInfo] = useState({});
+    const [shippingInfo, setshippingInfo] = useState({});
     const [paymentMethod, setPaymentMethod] = useState({});
+    // console.log(shippingInfo)
 
-    const handlePlaceOrder = (checkoutToken, shippingInfo, paymentMethod) => {
-        console.log(checkoutToken);
+    const handlePlaceOrder = (checkout, shippingInfo, paymentMethod) => {
+        console.log(checkout);
         console.log(shippingInfo);
         console.log(paymentMethod);
+
+        const orderData = {
+            "line_items": checkout.live.line_items,
+            "customer": {
+                "email": shippingInfo["email"]
+            },
+
+            "shipping": {
+                "name": shippingInfo["fullName"],
+                "street": shippingInfo["streetAddress"],
+                "town_city": shippingInfo["city"],
+                "county_state": shippingInfo["region"],
+                "postal_zip_code": shippingInfo["zipcode"],
+                "country": shippingInfo["country"]
+            },
+            "fulfillment": {
+                "shipping_method": shippingInfo["shipping"],
+            },
+            "payment": {
+                "gateway": 'stripe',
+                "stripe": {
+                    "payment_method_id": paymentMethod["id"]
+                }
+            }
+
+        };
+        //console.log(orderData);
+        commerce.checkout.capture(checkout.id, orderData).then(
+            (response) => {
+                console.log(response);
+
+
+            }
+        );
     }
 
+
+
+    if (!checkout.id) return <h4>Loading</h4>
     return (
-
-        <Grid container direction="column">
-
-            <Grid item>
-                <h3> Checkout Page</h3>
-            </Grid>
+        <Grid container direction='column' spacing={2}>
             <Grid item >
-                <h4><u>Shipping Form</u></h4>
-                <ShippingForm checkoutToken={checkoutToken} setShippingInfo={setShippingInfo} />
-                {
-                    //shippingInfo["country"] &&
-                    console.log(shippingInfo)
-                }
-            </Grid>
-            <Grid item>
-                <PaymentForm setPaymentMethod={setPaymentMethod} />
-            </Grid>
-            <Grid container justifyContent="center">
+                <h4>Checkout</h4>
                 <Grid item >
-                    <Button onClick={(event) => { handlePlaceOrder(checkoutToken, shippingInfo, paymentMethod) }}
-                    variant="contained" color="secondary" >Place Order</Button>
+                    <h4>ShippingForm</h4>
+                    <ShippingForm checkoutToken={checkout.id} setshippingInfo={setshippingInfo} />
+                    {
+                        shippingInfo["country"] &&
+                        console.log(
+                            shippingInfo)}
+
                 </Grid>
+
+                <Grid item >
+
+                    <PaymentForm setPaymentMethod={setPaymentMethod} />
+                </Grid>
+                <Grid item >
+                    <Button variant ="contained" color = "secondary"onClick={(event) => { handlePlaceOrder(checkout, shippingInfo, paymentMethod) }}> PLACE ORDER</Button>
+                </Grid>
+
             </Grid>
+
         </Grid>
     )
 
 }
-
 export default Checkout;
