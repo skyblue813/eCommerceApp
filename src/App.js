@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { commerce } from './lib/commerce';
 import Navbar from './components/navbar';
 import Checkout from "./components/Checkout"
+import Login from './components/login';
 
 
 
@@ -83,7 +84,10 @@ useEffect(() => {
                   <Checkout  cart = {cart}/>
 
                   </Route>
+                  <Route exact path={["/Login"]}>
+                  <Login/>
 
+                  </Route>
                 </Switch>
 
               </BrowserRouter>
