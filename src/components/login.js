@@ -24,14 +24,23 @@ function Login() {
         }
     }
 
+
     const handleEmail = (e)=>{
         if(loginEmail){
-        commerce.customer.login(loginEmail, window.location.href+"/Products")
+        commerce.customer.login(loginEmail, "http://localhost:3000/user")
         .then((response) => 
-            console.log(response))
-        
+            console.log(response),
+            setIsSent(true)
+            );      
     }
+     
+
 }
+const [isSent, setIsSent] = useState(false);
+if(isSent) {
+    return <h3> An email is sent to {loginEmail}</h3>
+}
+
     return (
         <div>
             <h3>Login Here </h3>
@@ -47,6 +56,7 @@ function Login() {
             <Button size ="small" variant ="contained" color = "primary" 
                     onClick= {handleEmail} > Login Token</Button>
             </Grid>
+            
                 </Grid>
                 </div>
 );

@@ -12,6 +12,7 @@ import { commerce } from './lib/commerce';
 import Navbar from './components/navbar';
 import Checkout from "./components/Checkout"
 import Login from './components/login';
+import HomePage from './components/homePage';
 
 
 
@@ -55,10 +56,19 @@ useEffect(() => {
       }
       );
   }
+
+  //const [loggedIn, setLoggedIn] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
+    const isLoggedIn = commerce.customer.isLoggedIn();
+  
+  useEffect(() => {
+    setIsLogin(commerce.customer.isLoggedIn());
+  },[isLoggedIn]);
+
   return (
     <Grid container direction = 'column'>
       <Grid item>
-        <Navbar cartItems = {cart.total_items}/>
+        <Navbar cartItems = {cart.total_items} isLogin = {isLogin}/>
     </Grid>
     <Grid item container>
           <Grid item xs={false} sm={1} md={2} lg={2}></Grid>
@@ -77,7 +87,7 @@ useEffect(() => {
                     <Products />
                   </Route >
                   <Route exact path={["/cart"]}>
-                    <Cart cart = {cart} updateCart={updateCart} emptyCart={emptyCart} Checkout ={Checkout}/>
+                    <Cart cart = {cart} updateCart={updateCart} emptyCart={emptyCart} Checkout ={Checkout} />
                     
                  </Route>
                    <Route exact path={["/Checkout"]}>
@@ -86,7 +96,11 @@ useEffect(() => {
                   </Route>
                   <Route exact path={["/Login"]}>
                   <Login/>
-
+                   
+                  </Route>
+                  <Route  path={["/user/:custID"]}>
+                  <HomePage isLogin ={isLogin} setIsLogin={setIsLogin}/> 
+                   
                   </Route>
                 </Switch>
 
