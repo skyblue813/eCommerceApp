@@ -13,6 +13,7 @@ import Navbar from './components/navbar';
 import Checkout from "./components/Checkout"
 import Login from './components/login';
 import HomePage from './components/homePage';
+//import Orders from './components/orders';
 
 
 
@@ -100,7 +101,7 @@ useEffect(() => {
                   </Route>
                   <Route  path={["/user/:custID"]}>
                   <HomePage isLogin ={isLogin} setIsLogin={setIsLogin}/> 
-                   
+                    
                   </Route>
                 </Switch>
 

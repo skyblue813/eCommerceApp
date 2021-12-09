@@ -5,16 +5,6 @@ import {useState} from "react"
 import {commerce} from "../lib/commerce";
 
 function Navbar({ cartItems, isLogin }) {
-    
-    
-    // let button = null;
-    // if (isLogin === true) {
-    //     button =
-    //         <Button onClick={isLoggedOut} />;
-    // } else {
-    //     button =
-    //         <Button onClick={isLoggedIn} />;
-    // }
     return (
         <AppBar position="static" color="primary">
             <Toolbar>
@@ -28,7 +18,9 @@ function Navbar({ cartItems, isLogin }) {
                 </IconButton>
                 {/* {isLoggedOut && <a href="/Login">Login</a>}
                 {isLoggedIn && <a href="/">Logout</a>} */}
-
+                <Button onClick={(event) => {
+                    window.location.href = '/user/:custID'
+                }}> Orders </Button>
 
                 {!isLogin && <Button onClick={(event) => {
                     window.location.href = '/Login'
@@ -39,6 +31,8 @@ function Navbar({ cartItems, isLogin }) {
                 
                     window.location.href = '/Products'}
                 }>LogOut</Button>}
+
+                
             </Toolbar>
         </AppBar>
     );

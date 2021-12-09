@@ -8,6 +8,7 @@ import ShippingForm from './ShippingForm'
 import PaymentForm from './paymentForm';
 
 
+
 function Checkout({ cart }) {
     const [checkout, setCheckout] = useState({});
 
