@@ -3,8 +3,6 @@ import { useParams } from "react-router";
 import { Grid } from "@material-ui/core"
 
 import { commerce } from "../lib/commerce";
-import { DeveloperModeRounded, KeyboardReturnSharp } from "@material-ui/icons";
-//import { , useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 
 
@@ -12,7 +10,7 @@ function HomePage({ isLogin, setIsLogin }) {
     const useStyles = makeStyles({
 
         media: {
-
+ 
             border: '1px solid black',
             maxWidth: 1200,
             boxShadow: '0 1px 3px 2px',
@@ -40,7 +38,7 @@ function HomePage({ isLogin, setIsLogin }) {
                 console.log(custID);
             }
         );
-    }, [custID]);
+    }, [custID, setIsLogin]);
 
     useEffect(() => {
         commerce.customer.about().then(
@@ -80,7 +78,7 @@ function HomePage({ isLogin, setIsLogin }) {
                     var date = new Date(0);
                     date.setUTCSeconds(orderItem.created);
                     return (
-                        <Grid container spacing={2} >
+                        <Grid container spacing={2} style ={{margin: '24px'}}>
                             <Grid item container direction="column" className={classes.media} >
                                 <Grid item sm={6} md={4} lg={3}>
                                     <h4> Order Placed on:  {date.toLocaleDateString()} </h4>
@@ -92,7 +90,7 @@ function HomePage({ isLogin, setIsLogin }) {
                                         <Grid container direction="row" spacing={2} xs={10} className={classes.items}>
                                             <Grid item xs={7}><p>{lineItem.product_name}</p></Grid>
                                             <Grid item xs={2}><p>{lineItem.quantity}</p></Grid>
-                                            <Grid item xs={3}><p>{lineItem.price.formatted_with_code}</p></Grid>
+                                            <Grid item xs={3}><p>{lineItem.line_total.formatted_with_code}</p></Grid>
                                         </Grid>
                                     )
                                 })
@@ -111,7 +109,3 @@ function HomePage({ isLogin, setIsLogin }) {
 }
 
 export default HomePage;
-// main:{
-//     border: '1px solid black',
-//     padding:'0 30px'
-// },

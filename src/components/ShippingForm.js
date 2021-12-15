@@ -5,7 +5,6 @@ import ReactPhoneInput from 'react-phone-input-material-ui';
 
 
 function ShippingForm({ checkoutToken, setshippingInfo }) {
-    //console.log(checkoutToken)
 
     const [country, setCountry] = useState("");
 
@@ -28,6 +27,21 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
     const [zipcodeError, setZipcodeError] = useState(false);
     const [zipcodeHelper, setZipcodeHelper] = useState("");
 
+    const[custID, setCustID] = useState("");
+
+    useEffect(() => {
+        commerce.customer.about().then(
+            (customer) => {
+                console.log(customer);
+                setCustID(customer.id);
+                setFullName(customer.firstname+ ' ' + customer.lastname);
+                setPhone(customer.phone);
+                setEmail(customer.email);
+
+            }
+        );
+    });
+    console.log(custID);
 
 
     const [countries, setCountries] = useState(undefined);
@@ -40,11 +54,6 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
             );
         }
     }, [checkoutToken]);
-
-   //console.log(country);
-    //console.log(countries);
-
-    //for region
 
     const [region, setRegion] = useState("");
     const [regions, setRegions] = useState(undefined);
@@ -63,13 +72,7 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
 
     }, [checkoutToken, country]);
 
-    //console.log(region);
-    //console.log(regions);
-
-    // shippingMethod
-
     const [shippingMethods, setShippingMethods] = useState(undefined);
-
     const [shippingMethod, setShippingMethod] = useState("");
 
     useEffect(() => {
@@ -178,7 +181,7 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
         <div>
             <Grid container direction='column'>
                 <Grid item>
-                    <TextField name="fullName" label=" Full Name " onChange={onTextFieldChange}
+                    <TextField name="fullName" label=" Full Name " value={fullName} onChange={onTextFieldChange}
                         error={textError}
                         helperText={textHelper}
                         onBlur={onTextFieldUnfocused}
@@ -186,7 +189,7 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
                 </Grid>
 
                 <Grid item>
-                    <ReactPhoneInput component={TextField} onChange={onPhoneChange}
+                    <ReactPhoneInput component={TextField} value={phone} onChange={onPhoneChange}
                         inputProps={
                             {
                                 error: phoneError,
@@ -197,7 +200,7 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="email" label="Email " onChange={onEmailChange}
+                    <TextField name="email" label="Email " value = {email} onChange={onEmailChange}
                         error={emailError}
                         helperText={emailHelper}
                         onBlur={onEmailfieldUnfocused}

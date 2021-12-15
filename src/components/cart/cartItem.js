@@ -31,7 +31,7 @@ function CartItem({cartItem, updateCart}){
             <Grid item container spacing={4}>
                 <Grid item xs={12} sm={4}>
                     <div className={classes.images}>
-                        <img src={cartItem.image.url} className={classes.img}></img>
+                        <img src={cartItem.image.url} className={classes.img} alt={cartItem.name}></img>
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6} container direction="column" >

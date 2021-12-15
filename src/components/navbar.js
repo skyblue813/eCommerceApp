@@ -1,7 +1,7 @@
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import { AppBar, Toolbar, Typography, IconButton, Badge, Button } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import {useState} from "react"
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {commerce} from "../lib/commerce";
 
 function Navbar({ cartItems, isLogin }) {
@@ -21,7 +21,9 @@ function Navbar({ cartItems, isLogin }) {
                 <Button onClick={(event) => {
                     window.location.href = '/user/:custID'
                 }}> Orders </Button>
-
+                 <IconButton href="/profile">
+                        <AccountCircleIcon />
+                </IconButton>
                 {!isLogin && <Button onClick={(event) => {
                     window.location.href = '/Login'
                 }

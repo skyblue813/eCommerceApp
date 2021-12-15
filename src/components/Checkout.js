@@ -37,10 +37,14 @@ function Checkout({ cart }) {
         console.log(shippingInfo);
         console.log(paymentMethod);
 
+        const indexofspace = shippingInfo.fullName.indexOf(' ');
         const orderData = {
             "line_items": checkout.live.line_items,
             "customer": {
-                "email": shippingInfo["email"]
+                "email": shippingInfo["email"],
+                "firstname": shippingInfo["fullName"].substring(0,indexofspace),
+                "lastname": shippingInfo["fullName"].substring(indexofspace+1),
+                "phone": shippingInfo["phone"]
             },
 
             "shipping": {

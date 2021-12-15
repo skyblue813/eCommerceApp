@@ -1,7 +1,7 @@
 
 import { commerce } from "../lib/commerce";
 import { Grid, TextField , Button} from '@material-ui/core';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Login() {
 
