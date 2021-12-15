@@ -175,8 +175,6 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
         }
     }
 
-
-
     return (
         <div>
             <Grid container direction='column'>
@@ -230,47 +228,33 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
                     />
                 </Grid>
                 {countries && country && <Grid item>
-
                     <Select value={country} onChange={(e) => { setCountry(e.target.value) }}>
-
                         {
                             Object.keys(countries).map((countryCode) => {
                             return <MenuItem value={countryCode} key={countryCode}> {countries[countryCode]}</MenuItem>
                             })
-
                         }
                     </Select>
                 </Grid>}
 
                 {regions && region && <Grid item>
-
                     <Select value={region} onChange={(e) => { setRegion(e.target.value) }}>
-
                         {
                             Object.keys(regions).map((regionCode) => {
                                 return <MenuItem value={regionCode} key={regionCode}> {regions[regionCode]}</MenuItem>
                             })
-
                         }
-
                     </Select>
-
                 </Grid>}
 
                 {shippingMethods && shippingMethod && <Grid item>
-
                     <Select value={shippingMethod} onChange={(e) => { setShippingMethod(e.target.value) }}>
-
                         {
-
                             shippingMethods.map((oneMethod) => {
                                 return <MenuItem value={oneMethod["id"]} key={oneMethod["id"]}> {oneMethod["description"]}</MenuItem>
                             })
-
                         }
-
                     </Select>
-
                 </Grid>}
 
                 <Grid item>

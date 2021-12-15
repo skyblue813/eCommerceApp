@@ -16,8 +16,6 @@ function Navbar({ cartItems, isLogin }) {
                         <ShoppingCartIcon />
                     </Badge>
                 </IconButton>
-                {/* {isLoggedOut && <a href="/Login">Login</a>}
-                {isLoggedIn && <a href="/">Logout</a>} */}
                 <Button onClick={(event) => {
                     window.location.href = '/user/:custID'
                 }}> Orders </Button>
@@ -30,11 +28,8 @@ function Navbar({ cartItems, isLogin }) {
                 }>LogIn  </Button>}
                 {isLogin && <Button onClick={(event)=>{
                     commerce.customer.logout();
-                
                     window.location.href = '/Products'}
-                }>LogOut</Button>}
-
-                
+                }>LogOut</Button>}                
             </Toolbar>
         </AppBar>
     );

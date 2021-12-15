@@ -11,10 +11,7 @@ import PaymentForm from './paymentForm';
 
 function Checkout({ cart }) {
     const [checkout, setCheckout] = useState({});
-
-
     useEffect(() => {
-
         if (cart.id) {
             commerce.checkout.generateToken(cart.id, { type: 'cart' }).then(
                 (checkout) => {
@@ -22,9 +19,7 @@ function Checkout({ cart }) {
                     //console.log(CheckoutID)
                 }
             );
-
         }
-
     }, [cart]);
     console.log(checkout)
 
@@ -42,8 +37,8 @@ function Checkout({ cart }) {
             "line_items": checkout.live.line_items,
             "customer": {
                 "email": shippingInfo["email"],
-                "firstname": shippingInfo["fullName"].substring(0,indexofspace),
-                "lastname": shippingInfo["fullName"].substring(indexofspace+1),
+                "firstname": shippingInfo["fullName"].substring(0, indexofspace),
+                "lastname": shippingInfo["fullName"].substring(indexofspace + 1),
                 "phone": shippingInfo["phone"]
             },
 
@@ -70,13 +65,16 @@ function Checkout({ cart }) {
         commerce.checkout.capture(checkout.id, orderData).then(
             (response) => {
                 console.log(response);
-
+                setIsOrderPlaced(true);
 
             }
         );
     }
 
-
+    const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+    if (isOrderPlaced) {
+        return <h3> Your Order is Placed!< br /> You will receive confirmation email shortly!</h3>
+    }
 
     if (!checkout.id) return <h4>Loading</h4>
     return (
@@ -98,7 +96,7 @@ function Checkout({ cart }) {
                     <PaymentForm setPaymentMethod={setPaymentMethod} />
                 </Grid>
                 <Grid item >
-                    <Button variant ="contained" color = "secondary"onClick={(event) => { handlePlaceOrder(checkout, shippingInfo, paymentMethod) }}> PLACE ORDER</Button>
+                    <Button variant="contained" color="secondary" onClick={(event) => { handlePlaceOrder(checkout, shippingInfo, paymentMethod) }}> PLACE ORDER</Button>
                 </Grid>
 
             </Grid>

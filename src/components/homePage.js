@@ -8,9 +8,7 @@ import { makeStyles } from "@material-ui/core";
 
 function HomePage({ isLogin, setIsLogin }) {
     const useStyles = makeStyles({
-
         media: {
- 
             border: '1px solid black',
             maxWidth: 1200,
             boxShadow: '0 1px 3px 2px',

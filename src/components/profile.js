@@ -5,8 +5,6 @@ import { Grid, TextField, Button } from "@material-ui/core";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 
 
-
-
 function Profile({ isLogin, setIsLogin }) {
     const [fullName, setFullName] = useState("");
     const [textError, setTextError] = useState(false);
@@ -91,8 +89,8 @@ function Profile({ isLogin, setIsLogin }) {
 
     return (
         <div>
-            <h3>Profile</h3>
-            <Grid container direction='column'>
+            <h3>Customer Profile</h3>
+            <Grid container direction='column' spacing ={2}>
                 <Grid item>
                     <TextField name="fullName" label=" Full Name " value={fullName} onChange={onTextFieldChange}
                         error={textError}
@@ -117,7 +115,9 @@ function Profile({ isLogin, setIsLogin }) {
                             }
                         }
                     />
-                    <Button onClick={handleUpdate}>UPDATE</Button>
+                </Grid>
+                <Grid item>
+                    <Button size ="small" variant ="contained" color = "primary"  onClick={handleUpdate}>UPDATE PROFILE</Button>
                 </Grid>
             </Grid>
 
