@@ -93,7 +93,7 @@ useEffect(() => {
                     
                  </Route>
                    <Route exact path={["/Checkout"]}>
-                  <Checkout  cart = {cart}/>
+                  <Checkout  cart = {cart} />
 
                   </Route>
                   <Route exact path={["/Login"]}>

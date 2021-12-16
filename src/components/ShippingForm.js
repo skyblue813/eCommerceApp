@@ -4,7 +4,7 @@ import { commerce } from "../lib/commerce";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 
 
-function ShippingForm({ checkoutToken, setshippingInfo }) {
+function ShippingForm({ checkoutToken, setshippingInfo}) {
 
     
     const [fullName, setFullName] = useState("");
@@ -137,27 +137,24 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
             setZipcodeHelper("");
         }
     }
-
+ 
     return (
         <div>
             <Grid container direction='column'>
                 <Grid item>
                     <TextField name="fullName" label=" Full Name " value={fullName} 
-                        onChange={onTextFieldChange}
-                        disabled={true}
+                        onChange={onTextFieldChange}    
                     />
                 </Grid>
 
                 <Grid item>
                     <ReactPhoneInput component={TextField} value={phone} 
                         onChange={onPhoneChange} 
-                        disabled={true} 
                     />
                 </Grid>
                 <Grid item>
                     <TextField name="email" label="Email " value = {email} 
-                        onChange={onEmailChange} 
-                        disabled={true}
+                        onChange={onEmailChange}  
                     />
                 </Grid>
                 <Grid item>
