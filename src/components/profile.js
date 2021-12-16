@@ -99,10 +99,12 @@ function Profile({ isLogin, setIsLogin }) {
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="email" label="Email " value={email} onChange={onEmailChange}
+                    <TextField name="email" label="Email " value={email} onChange={onEmailChange} 
+                        disabled={true} 
                         error={emailError}
                         helperText={emailHelper}
                         onBlur={onEmailfieldUnfocused}
+                       
                     />
                 </Grid>
                 <Grid item>

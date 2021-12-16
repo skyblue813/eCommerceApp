@@ -6,17 +6,12 @@ import ReactPhoneInput from 'react-phone-input-material-ui';
 
 function ShippingForm({ checkoutToken, setshippingInfo }) {
 
-    const [country, setCountry] = useState("");
-
+    
     const [fullName, setFullName] = useState("");
-    const [textError, setTextError] = useState(false);
-    const [textHelper, setTextHelper] = useState("");
     const [phone, setPhone] = useState("");
-    const [phoneError, setPhoneError] = useState(false);
-    const [phoneHelper, setPhoneHelper] = useState("");
     const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState(false);
-    const [emailHelper, setEmailHelper] = useState("");
+
+    const [country, setCountry] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
     const [addressError, setAddressError] = useState(false);
     const [addressHelper, setAddressHelper] = useState("");
@@ -88,48 +83,16 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
         }
     }, [checkoutToken, country, region]);
 
-    //console.log(shippingMethod);
-
-
     const onTextFieldChange = (e) => {
         setFullName(e.target.value);
-    }
-
-    const onTextFieldUnfocused = (e) => {
-        if (!fullName) {
-            setTextError(true);
-            setTextHelper("Please provide your full name");
-        } else {
-            setTextError(false);
-            setTextHelper("All set");
-        }
     }
 
     const onPhoneChange = (phoneNumber) => {
         setPhone(phoneNumber);
     };
 
-    const onPhoneUnfocused = () => {
-        if (phone.length !== 11) {
-            setPhoneError(true);
-            setPhoneHelper("Plese enter the phone number");
-        } else {
-            setPhoneError(false);
-            setPhoneHelper("");
-        }
-    }
     const onEmailChange = (e) => {
         setEmail(e.target.value);
-    }
-
-    const onEmailfieldUnfocused = (e) => {
-        if (!email) {
-            setEmailError(true);
-            setEmailHelper("Please provide your email");
-        } else {
-            setEmailError(false);
-            setEmailHelper("All set");
-        }
     }
 
 
@@ -179,29 +142,22 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
         <div>
             <Grid container direction='column'>
                 <Grid item>
-                    <TextField name="fullName" label=" Full Name " value={fullName} onChange={onTextFieldChange}
-                        error={textError}
-                        helperText={textHelper}
-                        onBlur={onTextFieldUnfocused}
+                    <TextField name="fullName" label=" Full Name " value={fullName} 
+                        onChange={onTextFieldChange}
+                        disabled={true}
                     />
                 </Grid>
 
                 <Grid item>
-                    <ReactPhoneInput component={TextField} value={phone} onChange={onPhoneChange}
-                        inputProps={
-                            {
-                                error: phoneError,
-                                helperText: phoneHelper,
-                                onBlur: onPhoneUnfocused
-                            }
-                        }
+                    <ReactPhoneInput component={TextField} value={phone} 
+                        onChange={onPhoneChange} 
+                        disabled={true} 
                     />
                 </Grid>
                 <Grid item>
-                    <TextField name="email" label="Email " value = {email} onChange={onEmailChange}
-                        error={emailError}
-                        helperText={emailHelper}
-                        onBlur={onEmailfieldUnfocused}
+                    <TextField name="email" label="Email " value = {email} 
+                        onChange={onEmailChange} 
+                        disabled={true}
                     />
                 </Grid>
                 <Grid item>
@@ -260,12 +216,9 @@ function ShippingForm({ checkoutToken, setshippingInfo }) {
                 <Grid item>
                     <Button size ="small" variant ="contained" color = "primary" 
                     onClick={() => {
-                        onTextFieldUnfocused(fullName)
-                        onPhoneUnfocused(phone)
                         onStreetAddressUnfocused(streetAddress)
                         onCityUnfocused(city)
                         onZipcodeUnfocused(zipcode)
-                        onEmailfieldUnfocused(email)
 
                         setshippingInfo(
                             {
